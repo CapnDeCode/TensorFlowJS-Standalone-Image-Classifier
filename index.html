@@ -1,0 +1,208 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2.7"> </script>
+    <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <input id ="image-selector" class="form-control border-0" type="file"/>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>Prediction</h2>
+                <ol id="prediction-list"></ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2 class="ml-3">Image</h2>
+                <canvas id="canvas" width="400" height="300" style="border:1px solid #000000;"></canvas>
+            </div>
+        </div>
+    </div>
+    <div  id="training-images">
+        <img width="400" height="300" class="train-image cat" src="training-images/cat.jpg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat2.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat3.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat4.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat5.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat6.jpeg" />
+        <!--<img width="400" height="300" class="train-image cat" src="training-images/cat7.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat8.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat9.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat10.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat11.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat12.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat13.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat14.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat15.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat16.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat17.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat18.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat19.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat20.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat21.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat22.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat23.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat24.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat25.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat26.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat27.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat28.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat29.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat30.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat31.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat32.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat33.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat34.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat35.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat36.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat37.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat38.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat39.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat40.jpeg" />
+        <img width="400" height="300" class="train-image cat" src="training-images/cat41.jpeg" />-->
+
+        <img width="400" height="300" class="train-image dog" src="training-images/dog.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog2.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog3.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog4.jpeg" />
+        <!--<img width="400" height="300" class="train-image dog" src="training-images/dog5.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog6.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog7.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog8.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog9.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog10.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog11.jpeg" />
+        <img width="400" height="300" class="train-image dog" src="training-images/dog12.jpeg" />-->
+    </div>
+</body>
+
+<script>
+    const modelType = "mobilenet";
+    const model = tf.sequential();
+    var labels = ['cat', 'dog'];
+    var ys, setLabel, input, canvas, context;
+    input = document.getElementById("image-selector");
+    canvas = document.getElementById("canvas");
+    context = canvas.getContext('2d');
+    
+    //-------------------------- Training: --------------------------------
+    window.addEventListener('load', (event) => {        
+        // Prepare model :
+        prepareModel();
+
+        // Prepare training images
+        var images = [];
+        var trainLabels = []
+        for(var i = 0; i < document.getElementsByClassName('train-image').length; i++) {
+            let img = preprocessImage(document.getElementsByClassName('train-image')[i], modelType);
+            //images.push(tf.reshape(img, [1, 224, 224, 3],'resize'));
+            images.push(img);
+            if (document.getElementsByClassName('train-image')[i].classList.contains("cat")){
+                trainLabels.push(0)
+            } else {
+                trainLabels.push(1)
+            }
+        }
+    
+        console.log(labels)
+        setLabel = Array.from(labels);
+        ys = tf.oneHot(trainLabels, 2);
+        console.log('ys:::'+ys);
+        console.log(images);
+        trainModel(images);
+    });
+
+    async function trainModel(images) {
+        for(var i = 0; i < images.length; i++) {
+            await model.fit(tf.concat(images, 0), ys, {epochs: 100}).then((loss) => {
+            const t = model.predict(images[i]);
+            console.log('Prediction:::'+t);
+            pred = t.argMax().dataSync(); // get the class of highest probability
+            //const labelsPred = Array.from(pred).map(e => setLabel[e]);
+            //console.log('labelsPred:::'+labelsPred);
+            }).catch((e) => {
+                console.log(e.message);
+            })
+        
+        }
+        console.log("Training done!");
+    }
+
+    //-------------------------- Predict: --------------------------------
+    input.addEventListener("change", function() {
+        var reader = new FileReader();
+        reader.addEventListener("loadend", function(arg) {
+            var src_image = new Image();
+            src_image.onload = function() {
+                canvas.height = src_image.height;
+                canvas.width = src_image.width;
+                context.drawImage(src_image, 0, 0);
+                var imageData = canvas.toDataURL("image/png"); 
+                runPrediction(src_image)
+            }
+            src_image.src = this.result;
+        });
+        var res = reader.readAsDataURL(this.files[0]);
+    });
+
+    async function runPrediction(imageData){
+        let tensor = preprocessImage(imageData, "mobilenet");
+        const resize_image = tf.reshape(tensor, [1, 224, 224, 3],'resize');
+        let prediction = await model.predict(tensor).data();
+        console.log('prediction:::'+ prediction);
+        
+        let top5 = Array.from(prediction)
+        .map(function(p,i){
+            return {
+                probability: p,
+                className: prediction[i]
+            };
+        }).sort(function(a,b){
+            return b.probability-a.probability;
+        }).slice(0,1);
+        
+        $("#prediction-list").empty();
+        top5.forEach(function(p){
+            $("#prediction-list").append(`<li>${p.className}:${p.probability.toFixed(6)}</li>`);
+        });
+    }
+
+    //-------------------------- Helpers: --------------------------------
+
+    function prepareModel(){
+        model.add(tf.layers.conv2d({
+            inputShape: [224, 224 , 3],
+            kernelSize: 5,
+            filters: 8,
+            strides: 2,
+            activation: 'relu',
+            kernelInitializer: 'VarianceScaling'
+        }));
+        model.add(tf.layers.maxPooling2d({poolSize: 2, strides: 2}));
+        model.add(tf.layers.maxPooling2d({poolSize: 2, strides: 2}));
+        model.add(tf.layers.flatten({}));
+        model.add(tf.layers.dense({units: 64, activation: 'relu'}));
+        model.add(tf.layers.dense({units: 2, activation: 'softmax'}));
+        model.compile({
+            loss: 'meanSquaredError',
+            optimizer : 'sgd'
+        });
+        model.summary()
+    }
+
+    function preprocessImage(image, modelName)
+    {
+        let tensor = tf.browser.fromPixels(image)
+        .resizeNearestNeighbor([224,224])
+        .toFloat();
+
+        let offset=tf.scalar(127.5);
+        
+        return tensor.sub(offset)
+        .div(offset)
+        .expandDims();
+    }
+</script>
